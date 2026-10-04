@@ -86,13 +86,6 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS");
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  // Unlike the read-only servers, this one can send mail, so a token is required.
-  const token = process.env.MCP_AUTH_TOKEN;
-  if (!token) return res.status(500).json({ error: "MCP_AUTH_TOKEN is not configured on the server" });
-  if (req.headers.authorization !== `Bearer ${token}`) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
   if (req.method === "GET") {
     if ((req.headers.accept || "").includes("text/event-stream")) return res.status(405).end();
     return res.status(200).json({ ...SERVER_INFO, status: "ok", tools: TOOLS.map((t) => t.name) });
