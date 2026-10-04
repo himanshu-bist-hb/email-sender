@@ -1,0 +1,10 @@
+{
+  "name": "email-mcp",
+  "version": "1.0.0",
+  "description": "MCP server to send email through the Gmail API",
+  "private": true,
+  "scripts": {
+    "dev": "node --env-file=.env.local server.js"
+  },
+  "engines": { "node": ">=20" }
+}
